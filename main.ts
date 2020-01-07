@@ -357,8 +357,8 @@ namespace Tinybit {
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
     export function CustomSpeedOffset(speedL: number, speedR: number): void {
     	
-    	offset: number = 40;
-
+        let offset: number = 40;
+        let scale: number = (255.-offset)/255.;
 
 
     }           
