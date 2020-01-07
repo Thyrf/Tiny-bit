@@ -347,35 +347,7 @@ namespace Tinybit {
             Car_spinright(speedL, speedR);
         }
     }    
-        
-    //% blockId=Tinybit_CustomSpeedOffset block="CustomSpeedOffset|speedL %speedL|speedR %speedR"
-    //% weight=91
-    //% blockGap=10
-    //% speedL.min=-255 speedL.max=255 speedR.min=-255 speedR.max=255
-    //% color="#006400"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
-    export function CustomSpeedOffset(speedL: number, speedR: number): void {
-    	
-    	let offset = 40;
-    	let scale = (255.-offset)/255.;
 
-        if(speedL<0 && speedR<0)
-        {
-            Car_back(round(speedL*scale)-offset, round(speedR*scale)-offset);
-        }
-        else if(speedL>0 && speedR>0)
-        {
-            Car_run(round(speedL*scale)+offset, round(speedR*scale)+offset);
-        }
-        else if(speedL<0 && speedR>0)
-        {
-            Car_spinleft(round(speedL*scale)-offset, round(speedR*scale)+offset);
-        }
-        else
-        {
-            Car_spinright(round(speedL*scale)+offset, round(speedR*scale)-offset);
-        }
-    }    
         
 
     
