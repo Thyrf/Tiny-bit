@@ -330,7 +330,7 @@ namespace Tinybit {
     //% color="#006400"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
     export function CustomSpeed(speedL: number, speedR: number): void {
-    	if(speedL<0 && speedR<0)
+        if(speedL<0 && speedR<0)
         {
             Car_back(speedL, speedR);
         }
@@ -347,9 +347,8 @@ namespace Tinybit {
             Car_spinright(speedL, speedR);
         }
     }    
-
         
-
+   
     
     //% blockId=Tinybit_Line_Sensor block="Line_Sensor|direct %direct|value %value"
     //% weight=89
