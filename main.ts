@@ -357,7 +357,7 @@ namespace Tinybit {
     export function CustomSpeedOffset(speedL: number, speedR: number): void {
     	
     	let offset = 40;
-    	let scale = 255-offset;
+    	let scale = (255.-offset)/255.;
 
         if(speedL<0 && speedR<0)
         {
