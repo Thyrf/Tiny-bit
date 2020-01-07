@@ -1,4 +1,4 @@
-﻿﻿/*
+﻿/*
 Copyright (C): 2010-2019, Shenzhen Yahboom Tech
 modified from liusen
 load dependency
@@ -323,30 +323,61 @@ namespace Tinybit {
         }
     }    
         
-    //% blockId=Tinybit_CustomSpeed block="CustomSpeed|speed1 %speed1|speed2 %speed2"
-    //% weight=90
+    //% blockId=Tinybit_CustomSpeed block="CustomSpeed|speedL %speedL|speedR %speedR"
+    //% weight=91
     //% blockGap=10
-    //% speed1.min=-255 speed1.max=255 speed2.min=-255 speed2.max=255
+    //% speedL.min=-255 speedL.max=255 speedR.min=-255 speedR.max=255
     //% color="#006400"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
-    export function CustomSpeed(speed1: number, speed2: number): void {
-        if(speed1<0 && speed2<0)
+    export function CustomSpeed(speedL: number, speedR: number): void {
+        if(speedL<0 && speedR<0)
         {
-            Car_back(speed1, speed2);
+            Car_back(speedL, speedR);
         }
-        else if(speed1>0 && speed2>0)
+        else if(speedL>0 && speedR>0)
         {
-            Car_run(speed1, speed2);
+            Car_run(speedL, speedR);
         }
-        else if(speed1<0 && speed2>0)
+        else if(speedL<0 && speedR>0)
         {
-            Car_spinleft(speed1, speed2);
+            Car_spinleft(speedL, speedR);
         }
         else
         {
-            Car_spinright(speed1, speed2);
+            Car_spinright(speedL, speedR);
         }
     }    
+        
+    //% blockId=Tinybit_CustomSpeedOffset block="CustomSpeedOffset|speedL %speedL|speedR %speedR"
+    //% weight=91
+    //% blockGap=10
+    //% speedL.min=-255 speedL.max=255 speedR.min=-255 speedR.max=255
+    //% color="#006400"
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
+    export function CustomSpeedOffset(speedL: number, speedR: number): void {
+        
+        let offset = 40;
+        let scale = 255-offset;
+
+        if(speedL<0 && speedR<0)
+        {
+            Car_back(round(speedL*scale)-offset, round(speedR*scale)-offset);
+        }
+        else if(speedL>0 && speedR>0)
+        {
+            Car_run(round(speedL*scale)+offset, round(speedR*scale)+offset);
+        }
+        else if(speedL<0 && speedR>0)
+        {
+            Car_spinleft(round(speedL*scale)-offset, round(speedR*scale)+offset);
+        }
+        else
+        {
+            Car_spinright(round(speedL*scale)+offset, round(speedR*scale)-offset);
+        }
+    }    
+        
+
     
     //% blockId=Tinybit_Line_Sensor block="Line_Sensor|direct %direct|value %value"
     //% weight=89
@@ -388,8 +419,8 @@ namespace Tinybit {
     //% blockGap=10
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=12
     export function Voice_Sensor(): number {
-	    //pins.setPull(DigitalPin.P1, PinPullMode.PullUp);
-        let temp  = 0;		
+        //pins.setPull(DigitalPin.P1, PinPullMode.PullUp);
+        let temp  = 0;      
         temp = pins.analogReadPin(AnalogPin.P1);           
             
         return temp;
@@ -404,20 +435,20 @@ namespace Tinybit {
     export function Ultrasonic_Car(): number {
 
        let list:Array<number> = [0, 0, 0, 0, 0];
-	for (let i = 0; i < 5; i++)
-	{
-		pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
-		pins.digitalWritePin(DigitalPin.P16, 0);
-		control.waitMicros(2);
-		pins.digitalWritePin(DigitalPin.P16, 1);
-		control.waitMicros(15);
-		pins.digitalWritePin(DigitalPin.P16, 0);
-		let d = pins.pulseIn(DigitalPin.P15, PulseValue.High, 43200);
-		list[i] = Math.floor(d / 40);
-	}
-	list.sort();
-	let length = (list[1] + list[2] + list[3])/3;
-	return  Math.floor(length);
+    for (let i = 0; i < 5; i++)
+    {
+        pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
+        pins.digitalWritePin(DigitalPin.P16, 0);
+        control.waitMicros(2);
+        pins.digitalWritePin(DigitalPin.P16, 1);
+        control.waitMicros(15);
+        pins.digitalWritePin(DigitalPin.P16, 0);
+        let d = pins.pulseIn(DigitalPin.P15, PulseValue.High, 43200);
+        list[i] = Math.floor(d / 40);
+    }
+    list.sort();
+    let length = (list[1] + list[2] + list[3])/3;
+    return  Math.floor(length);
     }
 
 
