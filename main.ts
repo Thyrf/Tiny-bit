@@ -305,13 +305,13 @@ namespace Tinybit {
         }
     }
     
-    //% blockId=Tinybit_CarCtrlSpeed222 block="CarCtrlSpeed222|%index|speed1 %speed1|speed2 %speed2"
+    //% blockId=Tinybit_CarCtrlSpeed2 block="CarCtrlSpeed2|%index|speed1 %speed1|speed2 %speed2"
     //% weight=91
     //% blockGap=10
     //% speed1.min=0 speed1.max=255 speed2.min=0 speed2.max=255
     //% color="#006400"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
-    export function CarCtrlSpeed222(index: CarState, speed1: number, speed2: number): void {
+    export function CarCtrlSpeed2(index: CarState, speed1: number, speed2: number): void {
         switch (index) {
             case CarState.Car_Run: Car_run(speed1, speed2); break;
             case CarState.Car_Back: Car_back(speed1, speed2); break;
@@ -330,7 +330,7 @@ namespace Tinybit {
     //% color="#006400"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
     export function CustomSpeed(speedL: number, speedR: number): void {
-        if(speedL<0 && speedR<0)
+    	if(speedL<0 && speedR<0)
         {
             Car_back(speedL, speedR);
         }
@@ -347,7 +347,8 @@ namespace Tinybit {
             Car_spinright(speedL, speedR);
         }
     }    
-        
+
+         
     //% blockId=Tinybit_CustomSpeedOffset block="CustomSpeedOffset|speedL %speedL|speedR %speedR"
     //% weight=91
     //% blockGap=10
@@ -355,9 +356,9 @@ namespace Tinybit {
     //% color="#006400"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
     export function CustomSpeedOffset(speedL: number, speedR: number): void {
-        
-        let offset = 40;
-        let scale = 255-offset;
+    	
+    	offset: number = 40;
+    	scale: number = (255.-offset)/255.;
 
         if(speedL<0 && speedR<0)
         {
@@ -371,12 +372,15 @@ namespace Tinybit {
         {
             Car_spinleft(round(speedL*scale)-offset, round(speedR*scale)+offset);
         }
-        else
+        else if(speedL>0 && speedR<0)
         {
             Car_spinright(round(speedL*scale)+offset, round(speedR*scale)-offset);
         }
-    }    
-        
+        else
+        {
+            Car_stop();
+        }
+    }           
 
     
     //% blockId=Tinybit_Line_Sensor block="Line_Sensor|direct %direct|value %value"
@@ -419,8 +423,8 @@ namespace Tinybit {
     //% blockGap=10
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=12
     export function Voice_Sensor(): number {
-        //pins.setPull(DigitalPin.P1, PinPullMode.PullUp);
-        let temp  = 0;      
+	    //pins.setPull(DigitalPin.P1, PinPullMode.PullUp);
+        let temp  = 0;		
         temp = pins.analogReadPin(AnalogPin.P1);           
             
         return temp;
@@ -435,20 +439,20 @@ namespace Tinybit {
     export function Ultrasonic_Car(): number {
 
        let list:Array<number> = [0, 0, 0, 0, 0];
-    for (let i = 0; i < 5; i++)
-    {
-        pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
-        pins.digitalWritePin(DigitalPin.P16, 0);
-        control.waitMicros(2);
-        pins.digitalWritePin(DigitalPin.P16, 1);
-        control.waitMicros(15);
-        pins.digitalWritePin(DigitalPin.P16, 0);
-        let d = pins.pulseIn(DigitalPin.P15, PulseValue.High, 43200);
-        list[i] = Math.floor(d / 40);
-    }
-    list.sort();
-    let length = (list[1] + list[2] + list[3])/3;
-    return  Math.floor(length);
+	for (let i = 0; i < 5; i++)
+	{
+		pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
+		pins.digitalWritePin(DigitalPin.P16, 0);
+		control.waitMicros(2);
+		pins.digitalWritePin(DigitalPin.P16, 1);
+		control.waitMicros(15);
+		pins.digitalWritePin(DigitalPin.P16, 0);
+		let d = pins.pulseIn(DigitalPin.P15, PulseValue.High, 43200);
+		list[i] = Math.floor(d / 40);
+	}
+	list.sort();
+	let length = (list[1] + list[2] + list[3])/3;
+	return  Math.floor(length);
     }
 
 
