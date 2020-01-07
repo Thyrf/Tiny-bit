@@ -323,28 +323,28 @@ namespace Tinybit {
         }
     }    
         
-    //% blockId=Tinybit_CustomSpeed block="CustomSpeed|speedL %speedL|speedR %speedR"
+    //% blockId=Tinybit_CustomSpeed block="CustomSpeed|speed1 %speed1|speed2 %speed2"
     //% weight=91
     //% blockGap=10
-    //% speedL.min=-255 speedL.max=255 speedR.min=-255 speedR.max=255
+    //% speed1.min=-255 speed1.max=255 speed2.min=-255 speed2.max=255
     //% color="#006400"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
-    export function CustomSpeed(speedL: number, speedR: number): void {
-        if(speedL<0 && speedR<0)
+    export function CustomSpeed(speed1: number, speed2: number): void {
+        if(speed1<0 && speed2<0)
         {
-            Car_back(speedL, speedR);
+            Car_back(speed1, speed2);
         }
-        else if(speedL>0 && speedR>0)
+        else if(speed1>0 && speed2>0)
         {
-            Car_run(speedL, speedR);
+            Car_run(speed1, speed2);
         }
-        else if(speedL<0 && speedR>0)
+        else if(speed1<0 && speed2>0)
         {
-            Car_spinleft(speedL, speedR);
+            Car_spinleft(speed1, speed2);
         }
         else
         {
-            Car_spinright(speedL, speedR);
+            Car_spinright(speed1, speed2);
         }
     }    
         
