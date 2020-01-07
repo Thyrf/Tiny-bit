@@ -324,7 +324,7 @@ namespace Tinybit {
     }    
         
     //% blockId=Tinybit_CustomSpeed block="CustomSpeed|speed1 %speed1|speed2 %speed2"
-    //% weight=91
+    //% weight=90
     //% blockGap=10
     //% speed1.min=-255 speed1.max=255 speed2.min=-255 speed2.max=255
     //% color="#006400"
